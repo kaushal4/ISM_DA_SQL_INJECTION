@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form onsubmit="handleSubmit(event)" >
+      <p>Username: <input type="text" name="username" /></p>
+      <p>Password: <input type="text" name="password" /></p>
+      <p><input type="submit" value="Log In" /></p>
+    </form>
+    <p id="age"></p>
+    <script>
+      const handleSubmit = async (event)=>{
+        event.preventDefault();
+        const username = document.querySelector(`input[name="username"]`).value;
+        const password = document.querySelector(`input[name="password"]`).value;
+        let response = await fetch(`http://localhost:3000/user?username=${username}&pass=${password}`);
+        response = await response.json();
+        document.querySelector("#age").innerHTML = `your age is : ${response[0].age}`
+      }
+    </script>
+    </body>
+</html>
